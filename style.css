@@ -1,0 +1,52 @@
+:root {
+    --cor-fundo: #37d7da;
+    --cor-principal: #d009da;
+    --cor-secundaria: #d40ba5; 
+    --cor-destaque: #fff81e;
+    --cor-texto: #cff1f7;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.caixa-principal {
+    background-color: var(--cor-principal);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    color: var(--cor-destaque);
+}
+
+button {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto);
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+}
+
+.botao-reiniciar {
+    margin-top: 20px;
+    background-color: var(--cor-destaque);
+    color: var(--cor-principal);
+    font-weight: bold;
+}
