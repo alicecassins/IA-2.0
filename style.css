@@ -1,7 +1,7 @@
 :root {
     --cor-fundo: #37d7da;
     --cor-principal: #d009da;
-    --cor-secundaria: #d40ba5; 
+    --cor-secundaria: #d40ba5;
     --cor-destaque: #fff81e;
     --cor-texto: #cff1f7;
 }
@@ -13,6 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-family: Arial, sans-serif;
 }
 
 .caixa-principal {
@@ -22,10 +23,24 @@ body {
     text-align: center;
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out;
 }
 
 h1 {
     color: var(--cor-destaque);
+    font-size: 1ក
+
+System: ### Código Atualizado (continuação)
+
+#### CSS (`style.css`) - Continuação
+```css
+}
+
+.caixa-progresso {
+    color: var(--cor-texto);
+    margin-bottom: 10px;
+    font-size: 0.9em;
 }
 
 button {
@@ -35,13 +50,18 @@ button {
     border-radius: 15px;
     padding: 15px;
     margin: 10px;
-    transition: background-color 0.3s;
+    transition: transform 0.2s, background-color 0.3s;
     cursor: pointer;
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button:hover {
     background-color: var(--cor-destaque);
     color: var(--cor-principal);
+    transform: scale(1.05);
 }
 
 .botao-reiniciar {
@@ -49,4 +69,26 @@ button:hover {
     background-color: var(--cor-destaque);
     color: var(--cor-principal);
     font-weight: bold;
+    width: 60%;
+}
+
+.caixa-perguntas {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.caixa-resultado {
+    margin-top: 20px;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* Efeito de fade para perguntas */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.caixa-principal {
+    animation: fadeIn 0.5s ease-in-out;
 }

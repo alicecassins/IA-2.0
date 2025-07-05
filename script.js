@@ -4,6 +4,8 @@ const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
 const botaoReiniciar = document.querySelector(".botao-reiniciar");
+const progressoAtual = document.querySelector(".progresso-atual");
+const progressoTotal = document.querySelector(".progresso-total");
 
 const perguntas = [
     {
@@ -11,7 +13,7 @@ const perguntas = [
         alternativas: [
             {
                 texto: "Achei incrível! Quero testar com os ingredientes da minha casa.",
-                afirmacao: "Você ficou empolgada com a ideia e logo quis experimentar receitas novas usando a IA como assistente. "
+                afirmacao: "Você ficou empolgada com a ideia e logo quis experimentar receitas novas usando a IA como assistente."
             },
             {
                 texto: "Prefiro seguir receitas tradicionais de livros e anotações antigas.",
@@ -75,7 +77,16 @@ const perguntas = [
 
 let atual = 0;
 let perguntaAtual;
-let historiaFinal = "";
+let historiaFinal = localStorage.getItem("historiaCulinaria") || "";
+
+function inicia() {
+    progressoTotal.textContent = perguntas.length;
+    if (historiaFinal && atual >= perguntas.length) {
+        mostraResultado();
+    } else {
+        mostraPergunta();
+    }
+}
 
 function mostraPergunta() {
     if (atual >= perguntas.length) {
@@ -86,10 +97,9 @@ function mostraPergunta() {
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     caixaAlternativas.textContent = "";
-
-    // LIMPA O RESULTADO VISUALMENTE AO REINICIAR
     caixaResultado.style.display = "none";
     textoResultado.textContent = "";
+    progressoAtual.textContent = atual + 1;
 
     mostraAlternativas();
 }
@@ -106,23 +116,33 @@ function mostraAlternativas() {
 function respostaSelecionada(opcaoSelecionada) {
     const afirmacoes = opcaoSelecionada.afirmacao;
     historiaFinal += afirmacoes + " ";
+    localStorage.setItem("historiaCulinaria", historiaFinal);
     atual++;
-    mostraPergunta();
+    caixaPrincipal.style.opacity = 0;
+    setTimeout(() => {
+        mostraPergunta();
+        caixaPrincipal.style.opacity = 1;
+    }, 300);
 }
 
 function mostraResultado() {
     caixaPerguntas.textContent = "Sua jornada na cozinha digital...";
     textoResultado.textContent = historiaFinal;
     caixaAlternativas.textContent = "";
-    caixaResultado.style.display = "block"; // Mostra o resultado
-    botaoReiniciar.style.display = "inline-block"; // Mostra o botão de reinício
+    caixaResultado.style.display = "block";
+    botaoReiniciar.style.display = "inline-block";
 }
 
 botaoReiniciar.addEventListener("click", () => {
     atual = 0;
     historiaFinal = "";
-    botaoReiniciar.style.display = "none"; // Esconde o botão ao reiniciar
-    mostraPergunta();
+    localStorage.removeItem("historiaCulinaria");
+    botaoReiniciar.style.display = "none";
+    caixaPrincipal.style.opacity = 0;
+    setTimeout(() => {
+        mostraPergunta();
+        caixaPrincipal.style.opacity = 1;
+    }, 300);
 });
 
-mostraPergunta();
+inicia();
